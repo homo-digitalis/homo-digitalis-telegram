@@ -1,0 +1,19 @@
+{
+  "name": "Homo Digitalis Telegram Chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "tsc --watch",
+    "build": "tsc",
+    "start": "node ./dist/telegram-consumer.js"
+  },
+  "author": "Homo Digitalis",
+  "license": "GNU GPL",
+  "dependencies": {
+    "request-with-buffer": "^3.0.3",
+    "telegram-interaction-builder": "^1.1.1"
+  }
+}
