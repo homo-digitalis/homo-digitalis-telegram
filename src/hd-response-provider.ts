@@ -1,6 +1,5 @@
 
-import { NLPTrainer } from "nlp-trainer"
-import { IAnswer, Processor } from "nlp-with-actions"
+import { IAnswer } from "nlp-with-actions"
 import { TelegramResponse } from "telegram-interaction-builder";
 import { IResponseProvider } from "telegram-interaction-builder/dist/types";
 import { RequestService } from "request-with-buffer"
@@ -23,22 +22,21 @@ export class HDResponseProvider implements IResponseProvider {
 
     public async getResponse(target: string, input: string): Promise<TelegramResponse> {
 
-
-
     const requestService: RequestService = RequestService.getInstance()
     const bufferIntervalInMilliSeconds: number = 1 // no need to buffer here
 
-    const exampleURL: string = `http://localhost:3000/api/name/Homo Digitalis/input/${input}`
+    // const hdServerURL: string = `http://localhost:3000/api/name/Homo Digitalis/input/${input}`
+    const hdServerURL: string = `https://homo-digitalis.org/api/name/Homo Digitalis/input/${input}`
 
     const options: any = {
-        url: exampleURL,
+        url: hdServerURL,
     }
-    console.log("result")
     const answer: IAnswer = 
         JSON.parse((await requestService.get(options, bufferIntervalInMilliSeconds)).data)
 
         const text: string = (answer.text === undefined) ?
-            "I don't know what to say." : answer.text
+            `Ich weiß nicht was ich sagen soll. Um mir beizubringen wie ich auf "${input}" antworten kann, klicke bitte hier: https://homo-digitalis.org.` :
+            answer.text
 
          this.telegramResponse = new TelegramResponse(target, text, [])
 
